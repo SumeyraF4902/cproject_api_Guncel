@@ -1,4 +1,4 @@
-package Page;
+package resources;
 
 import org.openqa.selenium.WebDriver;
 

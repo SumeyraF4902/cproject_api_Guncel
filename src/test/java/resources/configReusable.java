@@ -1,4 +1,4 @@
-package Page;
+package resources;
 
 import org.json.JSONObject;
 import org.openqa.selenium.By;
