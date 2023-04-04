@@ -13,7 +13,7 @@ public class a extends BaseURL {
         specification.pathParams("applicationPath", "application", "appIdPath", 2, "rolePath", "role");
         Response response = given().spec(specification).
                 when().
-                header("Authorization", "Bearer " + Token.BO_token()).
+                header("Authorization",  Token.BO_token()).
                 get("/{applicationPath}/{appIdPath}/{rolePath}");
         response.then().
 

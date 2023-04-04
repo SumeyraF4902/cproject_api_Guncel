@@ -11,9 +11,7 @@ public class Token {
 
     public static String BO_token() {
 
-
         WebDriverManager.chromedriver().setup();
-
         ChromeOptions options = new ChromeOptions().setHeadless(true);//setHeadles methodu ghost mode açıyor :)
         options.addArguments("--remote-allow-origins=*", "--start-maximized");
         WebDriver driver = new ChromeDriver(options);
@@ -30,7 +28,7 @@ public class Token {
         configReusable.waitForPageLoad();
         String token = configReusable.getAccessToken();
         driver.quit();
-        return token;
+        return "Bearer " + token;
     }
 
 
@@ -54,29 +52,7 @@ public class Token {
         configReusable.waitForPageLoad();
         String token = configReusable.getAccessToken();
         driver.quit();
-        return token;
+        return "Bearer " + token;
     }
 
-    public static String test1_token() {
-
-        WebDriverManager.chromedriver().setup();
-
-        ChromeOptions options = new ChromeOptions().setHeadless(true);
-        options.addArguments("--remote-allow-origins=*", "--start-maximized");
-        WebDriver driver = new ChromeDriver(options);
-        driver.get("https://qa-gm3.quaspareparts.com/oauth2/authorization/a3m-client");
-        // Load username and password from config file
-        LoginPage loginPage = new LoginPage(driver);
-        String username = ConfigReader.getProperty("default_username");
-        String password = ConfigReader.getProperty("default_password");
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
-        loginPage.clickLoginButton();
-        driver.get(ConfigReader.getProperty("token_url"));
-        configReusable configReusable = new configReusable(driver);
-        configReusable.waitForPageLoad();
-        String token = configReusable.getAccessToken();
-        driver.quit();
-        return token;
-    }
 }
