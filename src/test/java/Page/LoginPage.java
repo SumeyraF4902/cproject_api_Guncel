@@ -3,7 +3,7 @@ package Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends Protect_to_driver {
     public LoginPage(WebDriver driver) {
         super(driver);
     }
@@ -17,6 +17,6 @@ public class LoginPage extends BasePage{
     }
 
     public void clickLoginButton() {
-        driver.findElement(By.id("login-button")).click();
+        driver.findElement(By.xpath("//button[@type='submit']")).click();
     }
 }

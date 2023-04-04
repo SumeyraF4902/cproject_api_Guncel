@@ -1,10 +1,10 @@
 package Page;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import resources.ConfigReader;
 
 public class Config {
 
@@ -12,20 +12,20 @@ public class Config {
 
         WebDriverManager.chromedriver().setup();
 
-        ChromeOptions options = new ChromeOptions().setHeadless(true);
-        options.addArguments("--remote-allow-origins=*");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*", "--url=https://a3m-qa-gm3.quaspareparts.com/login","--start-maximized");
         WebDriver driver = new ChromeDriver(options);
-        driver.get("<https://qa-gm3.quaspareparts.com/oauth2/authorization/a3m-client>");
+        driver.get(ConfigReader.getProperty("token_url"));
         // Load username and password from config file
         LoginPage loginPage = new LoginPage(driver);
-        //String username = Config.getUsername();
-        //String password = Config.getPassword();
-       // loginPage.enterUsername(username);
-       // loginPage.enterPassword(password);
+        String username = ConfigReader.getProperty("bo_username");
+        String password = ConfigReader.getProperty("bo_password");
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
         loginPage.clickLoginButton();
-        UserPage userPage = new UserPage(driver);
-        userPage.waitForPageLoad();
-        String token = userPage.getAccessToken();
+        configReusable configReusable = new configReusable(driver);
+        configReusable.waitForPageLoad("tagName","pre");
+        String token = configReusable.getAccessToken();
         driver.quit();
         return token;
     }
@@ -34,20 +34,20 @@ public class Config {
 
         WebDriverManager.chromedriver().setup();
 
-        ChromeOptions options = new ChromeOptions().setHeadless(true);
-        options.addArguments("--remote-allow-origins=*");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*", "--url=https://a3m-qa-gm3.quaspareparts.com/login","--start-maximized");
         WebDriver driver = new ChromeDriver(options);
-        driver.get("<https://qa-gm3.quaspareparts.com/oauth2/authorization/a3m-client>");
-        // Load username and password from config file
+        driver.get(ConfigReader.getProperty("token_url"));
+        //Load username and password from config file
         LoginPage loginPage = new LoginPage(driver);
-       // String username = Config.getUsername();
-       // String password = Config.getPassword();
-       // loginPage.enterUsername(username);
-       // loginPage.enterPassword(password);
+        String username = ConfigReader.getProperty("cstmr_username");
+        String password = ConfigReader.getProperty("cstmr_password");
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
         loginPage.clickLoginButton();
-        UserPage userPage = new UserPage(driver);
-        userPage.waitForPageLoad();
-        String token = userPage.getAccessToken();
+        configReusable configReusable = new configReusable(driver);
+        configReusable.waitForPageLoad("tagName","pre");
+        String token = configReusable.getAccessToken();
         driver.quit();
         return token;
     }
@@ -56,20 +56,20 @@ public class Config {
 
         WebDriverManager.chromedriver().setup();
 
-        ChromeOptions options = new ChromeOptions().setHeadless(true);
-        options.addArguments("--remote-allow-origins=*");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*", "--url=https://a3m-qa-gm3.quaspareparts.com/login","--start-maximized");
         WebDriver driver = new ChromeDriver(options);
-        driver.get("<https://qa-gm3.quaspareparts.com/oauth2/authorization/a3m-client>");
+        driver.get(ConfigReader.getProperty("token_url"));
         // Load username and password from config file
         LoginPage loginPage = new LoginPage(driver);
-        //String username = Config.getUsername();
-        //String password = Config.getPassword();
-        //loginPage.enterUsername(username);
-        //loginPage.enterPassword(password);
+        String username = ConfigReader.getProperty("default_username");
+        String password = ConfigReader.getProperty("default_password");
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
         loginPage.clickLoginButton();
-        UserPage userPage = new UserPage(driver);
-        userPage.waitForPageLoad();
-        String token = userPage.getAccessToken();
+        configReusable configReusable = new configReusable(driver);
+        configReusable.waitForPageLoad("tagName","pre");
+        String token = configReusable.getAccessToken();
         driver.quit();
         return token;
     }
