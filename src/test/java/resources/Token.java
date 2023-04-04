@@ -1,6 +1,8 @@
 package resources;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.restassured.path.json.JsonPath;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,11 +11,13 @@ public class Token {
 
     public static String BO_token() {
 
+
         WebDriverManager.chromedriver().setup();
 
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*", "--url=https://a3m-qa-gm3.quaspareparts.com/login","--start-maximized");
+        ChromeOptions options = new ChromeOptions().setHeadless(true);//setHeadles methodu ghost mode açıyor :)
+        options.addArguments("--remote-allow-origins=*", "--start-maximized");
         WebDriver driver = new ChromeDriver(options);
+        driver.get("https://qa-gm3.quaspareparts.com/oauth2/authorization/a3m-client");
         // Load username and password from config file
         LoginPage loginPage = new LoginPage(driver);
         String username = ConfigReader.getProperty("bo_username");
@@ -29,13 +33,15 @@ public class Token {
         return token;
     }
 
+
     public static String cstmr_token() {
 
         WebDriverManager.chromedriver().setup();
 
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*", "--url=https://a3m-qa-gm3.quaspareparts.com/login","--start-maximized");
+        ChromeOptions options = new ChromeOptions().setHeadless(true);
+        options.addArguments("--remote-allow-origins=*", "--start-maximized");
         WebDriver driver = new ChromeDriver(options);
+        driver.get("https://qa-gm3.quaspareparts.com/oauth2/authorization/a3m-client");
         //Load username and password from config file
         LoginPage loginPage = new LoginPage(driver);
         String username = ConfigReader.getProperty("cstmr_username");
@@ -55,9 +61,10 @@ public class Token {
 
         WebDriverManager.chromedriver().setup();
 
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*", "--url=https://a3m-qa-gm3.quaspareparts.com/login","--start-maximized");
+        ChromeOptions options = new ChromeOptions().setHeadless(true);
+        options.addArguments("--remote-allow-origins=*", "--start-maximized");
         WebDriver driver = new ChromeDriver(options);
+        driver.get("https://qa-gm3.quaspareparts.com/oauth2/authorization/a3m-client");
         // Load username and password from config file
         LoginPage loginPage = new LoginPage(driver);
         String username = ConfigReader.getProperty("default_username");

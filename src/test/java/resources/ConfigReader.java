@@ -9,7 +9,7 @@ public class ConfigReader {
     static {
         try {
             properties = new Properties();
-            FileInputStream fileInputStream = new FileInputStream("config/config.properties");
+            FileInputStream fileInputStream = new FileInputStream("src/test/java/config.properties");
             properties.load(fileInputStream);
         } catch (Exception e) {
             System.out.println("Config dosyası okunamadı: " + e.getMessage());
