@@ -4,7 +4,7 @@
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg% n"/>
         </Console>
-        <File name="file" fileName="logs/app.log">
+        <File name="file" fileName="test_output/api.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%
 Improving Selenium WebDriver Test Script for Login and Token Retrieval 6 n"/>
         </File>

@@ -14,7 +14,6 @@ public class Token {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*", "--url=https://a3m-qa-gm3.quaspareparts.com/login","--start-maximized");
         WebDriver driver = new ChromeDriver(options);
-        driver.get(ConfigReader.getProperty("token_url"));
         // Load username and password from config file
         LoginPage loginPage = new LoginPage(driver);
         String username = ConfigReader.getProperty("bo_username");
@@ -22,8 +21,9 @@ public class Token {
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
         loginPage.clickLoginButton();
+        driver.get(ConfigReader.getProperty("token_url"));
         configReusable configReusable = new configReusable(driver);
-        configReusable.waitForPageLoad("tagName","pre");
+        configReusable.waitForPageLoad();
         String token = configReusable.getAccessToken();
         driver.quit();
         return token;
@@ -36,7 +36,6 @@ public class Token {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*", "--url=https://a3m-qa-gm3.quaspareparts.com/login","--start-maximized");
         WebDriver driver = new ChromeDriver(options);
-        driver.get(ConfigReader.getProperty("token_url"));
         //Load username and password from config file
         LoginPage loginPage = new LoginPage(driver);
         String username = ConfigReader.getProperty("cstmr_username");
@@ -44,8 +43,9 @@ public class Token {
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
         loginPage.clickLoginButton();
+        driver.get(ConfigReader.getProperty("token_url"));
         configReusable configReusable = new configReusable(driver);
-        configReusable.waitForPageLoad("tagName","pre");
+        configReusable.waitForPageLoad();
         String token = configReusable.getAccessToken();
         driver.quit();
         return token;
@@ -58,7 +58,6 @@ public class Token {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*", "--url=https://a3m-qa-gm3.quaspareparts.com/login","--start-maximized");
         WebDriver driver = new ChromeDriver(options);
-        driver.get(ConfigReader.getProperty("token_url"));
         // Load username and password from config file
         LoginPage loginPage = new LoginPage(driver);
         String username = ConfigReader.getProperty("default_username");
@@ -66,8 +65,9 @@ public class Token {
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
         loginPage.clickLoginButton();
+        driver.get(ConfigReader.getProperty("token_url"));
         configReusable configReusable = new configReusable(driver);
-        configReusable.waitForPageLoad("tagName","pre");
+        configReusable.waitForPageLoad();
         String token = configReusable.getAccessToken();
         driver.quit();
         return token;
