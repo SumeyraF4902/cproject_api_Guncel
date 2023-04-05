@@ -7,7 +7,7 @@ import resources.Token;
 
 import static io.restassured.RestAssured.given;
 
-public class a extends BaseURL {
+public class GetRolAppId extends BaseURL {
     @Test
     public void Test1() {
         specification.pathParams("applicationPath", "application", "appIdPath", 2, "rolePath", "role");
