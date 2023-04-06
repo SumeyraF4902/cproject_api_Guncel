@@ -3,10 +3,6 @@ package PojoDatas;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserGroupType {
-    public UserGroupType(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
     public UserGroupType(int id, String name, String description) {
         this.id = id;
         this.name = name;

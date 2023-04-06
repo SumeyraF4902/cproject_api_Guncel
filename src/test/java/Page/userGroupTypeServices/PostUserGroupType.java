@@ -2,6 +2,7 @@ package Page.userGroupTypeServices;
 
 import BaseUrl.BaseURL;
 import PojoDatas.UserGroupType;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Test;
 import resources.Token;
@@ -13,17 +14,19 @@ public class PostUserGroupType extends BaseURL {
     @Test
     public void PostUserGroupTypeAPITest() {
         specification.pathParams("userGroupTypePath", "user-group-type");
-        UserGroupType reqBody = new UserGroupType("Rahat Unit", "Boş Beleşler");
-
-        Response response = given().spec(specification).when().
-                header("Authorization",  Token.BO_token()).body("reqBody").
+        String reqBody = "  {\n" +
+                "    \"name\": \"Rahat Unit\",\n" +
+                "    \"description\": \"Beleşçiler\"\n" +
+                "  }";
+        Response response = given().spec(specification).contentType(ContentType.JSON).when().
+                header("Authorization",  Token.BO_token()).body(reqBody).
                 post("/{userGroupTypePath}");
         System.out.println("Response:  ");
         response.prettyPrint();
         response.then().assertThat().statusCode(201);
         UserGroupType actualData = response.as(UserGroupType.class);
-        assertEquals(reqBody.getName(),actualData.getName());
-        assertEquals(reqBody.getDescription(),actualData.getDescription());
+        assertEquals("Rahat Unit",actualData.getName());
+        assertEquals("Beleşçiler",actualData.getDescription());
 
         rahatUnıtId = actualData.getId();
     }
