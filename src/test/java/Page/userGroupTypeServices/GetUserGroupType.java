@@ -2,10 +2,10 @@ package Page.userGroupTypeServices;
 
 import BaseUrl.BaseURL;
 import io.restassured.response.Response;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import resources.Token;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 public class GetUserGroupType extends BaseURL {
     @Test
     public void GetAllUserGroupTypeAPITest() {
@@ -14,6 +14,8 @@ public class GetUserGroupType extends BaseURL {
         Response response = given().spec(specification).when().
                 header("Authorization",  Token.BO_token()).
                 get("/{userGroupTypePath}");
+        System.out.println("Response:  ");
+        response.prettyPrint();
         response.then().assertThat().statusCode(200);
     }
     @Test
@@ -23,7 +25,9 @@ public class GetUserGroupType extends BaseURL {
         Response response = given().spec(specification).when().
                 header("Authorization",  Token.BO_token()).
                 get("/{userGroupTypePath}/{idPath}");
-        response.then().assertThat().statusCode(200).body("id", Matchers.hasItem(3));
+        System.out.println("Response:  ");
+        response.prettyPrint();
+        response.then().assertThat().statusCode(200).body("id", equalTo(3));
     }
     @Test
     public void GetUserGroupTypeByIdAPINegativeTest() {
@@ -32,6 +36,8 @@ public class GetUserGroupType extends BaseURL {
         Response response = given().spec(specification).when().
                 header("Authorization",  Token.BO_token()).
                 get("/{userGroupTypePath}/{idPath}");
+        System.out.println("Response:  ");
+        response.prettyPrint();
         response.then().assertThat().statusCode(404);
     }
 }

@@ -15,7 +15,9 @@ public class PutUserGroupType extends BaseURL {
                                                         "+%&");
         Response response = given().spec(specification).when().
                 header("Authorization",  Token.BO_token()).body(reqBody).
-                post("/{userGroupTypePath}");
+                put("/{userGroupTypePath}");
+        System.out.println("Response:  ");
+        response.prettyPrint();
         response.then().assertThat().statusCode(200);
         UserGroupType actualData = response.as(UserGroupType.class);
         assertEquals(reqBody.getId(), actualData.getId());
@@ -27,9 +29,11 @@ public class PutUserGroupType extends BaseURL {
         specification.pathParams("userGroupTypePath", "user-group-type");
         UserGroupType reqBody = new UserGroupType(12345, "Yokluk:(", "Hiçlik:)");
 
-        Response response = given().spec(specification).when().
+        Response response = given().spec(specification).
                 header("Authorization",  Token.BO_token()).body(reqBody).
-                post("/{userGroupTypePath}");
+                when().put("/{userGroupTypePath}");
+        System.out.println("Response:  ");
+        response.prettyPrint();
         response.then().assertThat().statusCode(400);
     }
 }

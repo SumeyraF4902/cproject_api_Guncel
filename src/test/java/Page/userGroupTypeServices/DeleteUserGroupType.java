@@ -13,6 +13,8 @@ public class DeleteUserGroupType extends BaseURL {
         Response response = given().spec(specification).when().
                 header("Authorization",  Token.BO_token()).
                 delete("/{userGroupTypePath}/{idPath}");
+        System.out.println("Response:  ");
+        response.prettyPrint();
         response.then().assertThat().statusCode(200);
     }
 }
