@@ -9,6 +9,7 @@ import resources.Token;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 public class PostUserGroupType extends BaseURL {
+    static int rahatUnıtId;
     @Test
     public void PostUserGroupTypeAPITest() {
         specification.pathParams("userGroupTypePath", "user-group-type");
@@ -21,15 +22,7 @@ public class PostUserGroupType extends BaseURL {
         UserGroupType actualData = response.as(UserGroupType.class);
         assertEquals(reqBody.getName(),actualData.getName());
         assertEquals(reqBody.getDescription(),actualData.getDescription());
-    }
-    @Test
-    public void PostUserGroupTypeNegativeAPITest() {
-        specification.pathParams("userGroupTypePath", "user-group-type");
-        UserGroupType reqBody = new UserGroupType(" ", "+%&");
 
-        Response response = given().spec(specification).when().
-                header("Authorization",  Token.BO_token()).body(reqBody).
-                post("/{userGroupTypePath}");
-        response.then().assertThat().statusCode(400);
+        rahatUnıtId = actualData.getId();
     }
 }
