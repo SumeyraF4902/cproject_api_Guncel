@@ -42,8 +42,8 @@ public class Token {
         driver.get("https://qa-gm3.quaspareparts.com/oauth2/authorization/a3m-client");
         //Load username and password from config file
         LoginPage loginPage = new LoginPage(driver);
-        String username = ConfigReader.getProperty("cstmr_username");
-        String password = ConfigReader.getProperty("cstmr_password");
+        String username = ConfigReader.getProperty("ctm_username");
+        String password = ConfigReader.getProperty("ctm_password");
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
         loginPage.clickLoginButton();
