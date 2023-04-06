@@ -1,11 +1,11 @@
 package resources;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.restassured.path.json.JsonPath;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import utilities.ConfigReader;
+import utilities.configReusable;
 
 public class Token {
 
