@@ -3,7 +3,7 @@ package Page.roleServices;
 import BaseUrl.BaseURL;
 import io.restassured.response.Response;
 import org.junit.Test;
-import utilities.Token;
+import resources.Token;
 
 import static io.restassured.RestAssured.given;
 

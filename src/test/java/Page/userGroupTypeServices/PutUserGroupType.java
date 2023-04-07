@@ -5,7 +5,7 @@ import PojoDatas.UserGroupType;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Test;
-import utilities.Token;
+import resources.Token;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 public class PutUserGroupType extends BaseURL {
@@ -13,6 +13,7 @@ public class PutUserGroupType extends BaseURL {
     public void PutUserGroupTypeAPITest() {
         specification.pathParams("userGroupTypePath", "user-group-type");
         UserGroupType reqBody = new UserGroupType(PostUserGroupType.rahatUnıtId, " ", "+%&");
+
         Response response = given().spec(specification).contentType(ContentType.JSON).when().
                 header("Authorization",  Token.BO_token()).body(reqBody).
                 put("/{userGroupTypePath}");

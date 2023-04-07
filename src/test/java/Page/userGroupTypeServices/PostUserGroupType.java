@@ -5,7 +5,7 @@ import PojoDatas.UserGroupType;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Test;
-import utilities.Token;
+import resources.Token;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 public class PostUserGroupType extends BaseURL {

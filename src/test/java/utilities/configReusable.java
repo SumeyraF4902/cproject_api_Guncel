@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import resources.Protect_to_driver;
 
 public class configReusable extends Protect_to_driver {
     public configReusable(WebDriver driver) {
