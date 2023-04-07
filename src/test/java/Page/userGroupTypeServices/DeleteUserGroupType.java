@@ -8,8 +8,8 @@ import static io.restassured.RestAssured.given;
 public class DeleteUserGroupType extends BaseURL {
     @Test
     public void GetUserGroupTypeByIdAPITest() {
-        specification.pathParams("userGroupTypePath", "user-group-type", "idPath",
-                                            PostUserGroupType.rahatUnıtId);
+        specification.pathParams("userGroupTypePath", "user-group-type",
+                                    "idPath", PostUserGroupType.rahatUnıtId);
         Response response = given().spec(specification).when().
                 header("Authorization",  Token.BO_token()).
                 delete("/{userGroupTypePath}/{idPath}");

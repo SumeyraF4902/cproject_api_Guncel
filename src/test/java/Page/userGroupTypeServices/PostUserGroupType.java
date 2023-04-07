@@ -6,7 +6,6 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Test;
 import resources.Token;
-
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 public class PostUserGroupType extends BaseURL {
@@ -15,8 +14,8 @@ public class PostUserGroupType extends BaseURL {
     public void PostUserGroupTypeAPITest() {
         specification.pathParams("userGroupTypePath", "user-group-type");
         String reqBody = "  {\n" +
-                "    \"name\": \"Rahat Unit\",\n" +
-                "    \"description\": \"Beleşçiler\"\n" +
+                "    \"name\": \"Aşırı Rahat Unit\",\n" +
+                "    \"description\": \"Boş Beleşler\"\n" +
                 "  }";
         Response response = given().spec(specification).contentType(ContentType.JSON).when().
                 header("Authorization",  Token.BO_token()).body(reqBody).
@@ -25,8 +24,8 @@ public class PostUserGroupType extends BaseURL {
         response.prettyPrint();
         response.then().assertThat().statusCode(201);
         UserGroupType actualData = response.as(UserGroupType.class);
-        assertEquals("Rahat Unit",actualData.getName());
-        assertEquals("Beleşçiler",actualData.getDescription());
+        assertEquals("Aşırı Rahat Unit",actualData.getName());
+        assertEquals("Boş Beleşler",actualData.getDescription());
 
         rahatUnıtId = actualData.getId();
     }
