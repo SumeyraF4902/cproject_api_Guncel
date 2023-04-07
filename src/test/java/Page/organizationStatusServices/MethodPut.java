@@ -2,7 +2,8 @@ package Page.organizationStatusServices;
 
 import BaseUrl.BaseURL;
 import io.restassured.response.Response;
-import org.junit.Test;
+
+import org.testng.annotations.Test;
 import utilities.Token;
 
 import static io.restassured.RestAssured.given;

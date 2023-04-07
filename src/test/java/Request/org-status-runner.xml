@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="My Test Suite">
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg" />
+    </listeners>
+    <test name="My Test">
+        <classes>
+            <class name="Page.organizationStatusServices.MethodGet">
+                <methods>
+                    <include name="ZGetAllOrganizationStatus"/>
+                    <include name="GetOrganizationStatusByid"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

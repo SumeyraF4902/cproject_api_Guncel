@@ -1,0 +1,1 @@
+[{"uid":"20c85ba27a1935d5","name":"GetOrganizationStatusByid","time":{"start":1680889874489,"stop":1680889902342,"duration":27853},"status":"passed","severity":"normal"},{"uid":"9181936c46206fd4","name":"ZGetAllOrganizationStatus","time":{"start":1680889865736,"stop":1680889874444,"duration":8708},"status":"passed","severity":"normal"}]

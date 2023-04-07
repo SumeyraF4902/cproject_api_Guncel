@@ -2,12 +2,15 @@ package BaseUrl;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
-import org.junit.Before;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+
 
 public class BaseURL {
     protected RequestSpecification specification;
 
-    @Before
+    @BeforeTest
     public void setUpBaseURL() {
 
         specification = new RequestSpecBuilder().
