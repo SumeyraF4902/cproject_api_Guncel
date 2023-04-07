@@ -2,7 +2,7 @@ package Page.userGroupTypeServices;
 
 import BaseUrl.BaseURL;
 import io.restassured.response.Response;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import resources.Token;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -20,7 +20,7 @@ public class GetUserGroupType extends BaseURL {
     }
     @Test
     public void GetUserGroupTypeByIdAPITest() {
-        specification.pathParams("userGroupTypePath", "user-group-type", "idPath", "3");
+        specification.pathParams("userGroupTypePath", "user-group-type", "idPath", 3);
 
         Response response = given().spec(specification).when().
                 header("Authorization",  Token.BO_token()).
