@@ -8,11 +8,11 @@ import resources.Token;
 import static io.restassured.RestAssured.given;
 
 public class MethodDelete extends BaseURL {
-
+int a = MethodPost.team_id;
     @Test
     public void organization_status_delete_selected() {
         specification.pathParams("org-stts-path", "organization-status",
-                "idPath", MethodPost.team_id);
+                "idPath",a);
         Response response = given().spec(specification).when().
                 header("Authorization", Token.BO_token()).
                 delete("/{org-stts-path}/{idPath}");

@@ -35,6 +35,7 @@ public class MethodPost extends BaseURL {
 
 // Get the team01Id
         team_id = (int) teams.get("id");
+        System.out.println(team_id);
     }
 }
 
