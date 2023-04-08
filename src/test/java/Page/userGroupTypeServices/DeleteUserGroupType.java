@@ -2,12 +2,12 @@ package Page.userGroupTypeServices;
 
 import BaseUrl.BaseURL;
 import io.restassured.response.Response;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import resources.Token;
 import static io.restassured.RestAssured.given;
 public class DeleteUserGroupType extends BaseURL {
     @Test
-    public void GetUserGroupTypeByIdAPITest() {
+    public void DeleteUserGroupTypeByIdAPITest() {
         specification.pathParams("userGroupTypePath", "user-group-type",
                                     "idPath", PostUserGroupType.rahatUnıtId);
         Response response = given().spec(specification).when().

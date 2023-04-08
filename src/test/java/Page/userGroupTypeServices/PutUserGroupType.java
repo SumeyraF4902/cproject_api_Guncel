@@ -4,10 +4,10 @@ import BaseUrl.BaseURL;
 import PojoDatas.UserGroupType;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import resources.Token;
 import static io.restassured.RestAssured.given;
-import static org.junit.Assert.assertEquals;
+import static org.testng.Assert.assertEquals;
 public class PutUserGroupType extends BaseURL {
     @Test
     public void PutUserGroupTypeAPITest() {
