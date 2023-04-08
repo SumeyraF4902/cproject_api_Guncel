@@ -1,0 +1,1 @@
+{"uuid":"b4ff5d4a-4613-4196-b565-2b91c92276ee","name":"UserGroupType Test Suite","children":["d74b9bcd-6bfd-4fa0-b772-1804ab03a7bb"],"befores":[{"name":"setUpBaseURL","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1680973119532,"stop":1680973120052}],"afters":[],"start":1680973119499,"stop":1680973139481}
