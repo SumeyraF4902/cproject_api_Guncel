@@ -1,18 +1,16 @@
 package PojoDatas;
 
+import PojoDatas.UserGroup.UserGroup;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
-
-import java.io.IOException;
 import java.util.*;
-
-import static Page.userServices.testcases.specification;
+import static Page.userServices.PositiveTestCases.specification;
 import static io.restassured.RestAssured.given;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
+
 
     private int id;
     private static final int organization_id = 1;
@@ -99,21 +97,13 @@ public class User {
                 .post("/user/reset-credentials");
     }
 
-    public static Response sendEmailVerification(int id) throws IOException {
+    public static Response sendEmailVerification(int id){
 
         return given()
                 .spec(specification)
                 .when()
-                .body(sendId(id))
+                .body(new HashMap<>(Map.of("id", id)))
                 .post("/user/send-verification-request");
-
-    }
-
-    public static String sendId(int id) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, Integer> requestBody = new HashMap<>();
-        requestBody.put("id", id);
-        return mapper.writeValueAsString(requestBody);
 
     }
 
@@ -168,7 +158,13 @@ public class User {
                 .post("/user/cherry-pick");
     }
 
+    public static Response getAllUsersOfOrganization(int OrganizationId) {
 
+        return given()
+                .spec(specification)
+                .when()
+                .get("/organization/"+ OrganizationId+"/user");
+    }
 
 
     public int getId() {

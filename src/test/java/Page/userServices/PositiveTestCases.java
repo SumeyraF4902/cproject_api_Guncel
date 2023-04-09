@@ -1,4 +1,5 @@
 package Page.userServices;
+import BaseUrl.BaseURL;
 import PojoDatas.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -12,20 +13,22 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
+import resources.Token;
 import utilities.JsonToJava;
+
 import java.io.IOException;
 import java.util.List;
 import static org.testng.Assert.*;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class testcases {
+public class PositiveTestCases {
     public static RequestSpecification specification;
     static int userId;
     static String token;
 
 
-    @BeforeClass
+@BeforeClass
     public static void setUp() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions opt = new ChromeOptions().setHeadless(true);
@@ -48,8 +51,8 @@ public class testcases {
     }
 
 
-    @Test
-    public void registerUserManually() throws IOException {
+    @Test(description = "[POST]/auth/api/user/register")
+    public void registerUserManually() {
 
         User.RegisterUserRequest requestBody = new User.RegisterUserRequest();
 
@@ -66,7 +69,7 @@ public class testcases {
 
     }
 
-    @Test
+    @Test(description = "[DELETE]/auth/api/user/{id}")
     public void deleteUserById() {
 
         User.RegisterUserRequest requestBody = new User.RegisterUserRequest();
@@ -86,10 +89,10 @@ public class testcases {
 
     }
 
-    @Test
+    @Test(description = "[POST]/auth/api/user/reset-credentials")
     public void resetUsersCredentials() {
-
-        List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
+//     //   findAll{it.status.description!='User account is activated and authorized to use the application'}.id
+        List<Integer> ids = User.getAllUsers().jsonPath().getList("findAll{it.id>60}.id");
         int size = ids.size();
         userId = ids.get(size - 1);
         Response selectedUser = User.getUserById(userId);
@@ -104,7 +107,7 @@ public class testcases {
 
     }
 
-    @Test
+    @Test(description = "[GET]/auth/api/user/{id}")
     public void getUserById() {
 
         List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
@@ -143,7 +146,7 @@ public class testcases {
 
     }
 
-    @Test
+    @Test(description = "[PUT]/auth/api/user")
     public void updateExistingUser() {
 
         List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
@@ -185,8 +188,8 @@ public class testcases {
 
     }
 
-    @Test
-    public void sendEmailVerification() throws IOException {
+    @Test(description = "[POST]/auth/api/user/send-verification-request")
+    public void sendEmailVerification(){
         List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
         int size = ids.size();
         userId = ids.get(size - 1);
@@ -199,8 +202,8 @@ public class testcases {
 
     }
 
-    @Test
-    public void getAllUsers() throws IOException {
+    @Test(description = "[GET]/auth/api/user")
+    public void getAllUsers(){
 
         Response response = User.getAllUsers();
 
@@ -208,15 +211,10 @@ public class testcases {
         assertTrue((response.jsonPath().getList("id")).size()>0);
 
 
-        // ArrayList<User> users = new ObjectMapper()
-        //         .readValue(response.asString(), new TypeReference<List<User>>() {
-        //         });
-        // System.out.println(users.get(1));
-
 
     }
 
-    @Test
+    @Test(description = "[POST]/auth/api/user/cherry-pick")
     public void cherrypickUsersByProvidingListOfIds() {
 
         List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
@@ -227,21 +225,17 @@ public class testcases {
         requestBody[2] = ids.get(3);
 
         Response response = User.cherryPickUsers(requestBody);
-
-
         response.then().statusCode(200);
-        response.prettyPrint();
+        assertEquals(3, response.jsonPath().getList("id").size());
     }
 
-    @Test
+    @Test(description = "[POST]/auth/api/organization/{organizationId}/application/{appId}/role/{roleId}/user")
     public void inviteNewUser() {
 
         User.RegisterUserRequest requestBody = new User.RegisterUserRequest();
 
         Response response = User.inviteNewUser(requestBody);
-        System.out.println("requestbody = " + requestBody);
         response.then().statusCode(201);
-        response.prettyPrint();
         assertEquals(requestBody.getEmail(), response.jsonPath().getString("email"));
         assertEquals(requestBody.getEmail(), response.jsonPath().getString("username"));
         assertFalse(Boolean.parseBoolean(response.jsonPath().getString("is_email_verified")));
@@ -249,7 +243,7 @@ public class testcases {
 
     }
 
-    @Test
+    @Test(description = "[POST]/auth/api/user/resend-organization-invitation")
     public void resendOrganizationInvitation() {
 
         List<Integer> ids = User.getAllUsers().jsonPath()
@@ -259,11 +253,21 @@ public class testcases {
         User.ResendOrganizationInvitation requestBody = new User.ResendOrganizationInvitation(userId);
 
         Response response = User.resendOrganizationInvitation(requestBody);
-
-        response.prettyPrint();
-        System.out.println("response.getStatusCode() = " + response.getStatusCode());
         response.then().statusCode(200);
         assertEquals("Invitation email request sent successfully", response.jsonPath().getString("message"));
+
+    }
+
+    @Test(description = "[GET]/auth/api/organization/{organizationId}/user")
+    public void getAllUsersOfOrganization(){
+        int organizationId = 1;
+        Response response = User.getAllUsersOfOrganization(organizationId);
+        response.then().statusCode(200);
+        List<Integer> differenIdList = response.jsonPath()
+                .getList("findAll { user -> user.user_groups.any { group -> group.organization_id != 1 } }");
+        assertFalse(differenIdList.size()>0);
+
+
 
     }
 
