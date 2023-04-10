@@ -4,8 +4,10 @@ import PojoDatas.UserGroup.UserGroup;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
 import java.util.*;
-import static Page.userServices.PositiveTestCases.specification;
+
 import static io.restassured.RestAssured.given;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -51,7 +53,7 @@ public class User {
 
     }
 
-    public static Response registerNewUser(RegisterUserRequest body) {
+    public static Response registerNewUser(RegisterUserRequest body, RequestSpecification specification) {
 
         return given()
                 .spec(specification)
@@ -60,7 +62,7 @@ public class User {
                 .post("/user/register");
     }
 
-    public static Response inviteNewUser(RegisterUserRequest body) {
+    public static Response inviteNewUser(RegisterUserRequest body, RequestSpecification specification) {
 
         return given()
                 .spec(specification)
@@ -70,7 +72,7 @@ public class User {
 
     }
 
-    public static Response updateUser(UpdateUser requestBody){
+    public static Response updateUser(UpdateUser requestBody, RequestSpecification specification){
         return given()
                 .spec(specification)
                 .when()
@@ -78,7 +80,7 @@ public class User {
                 .put("/user");
     }
 
-    public static Response resendOrganizationInvitation(ResendOrganizationInvitation requestBody) {
+    public static Response resendOrganizationInvitation(ResendOrganizationInvitation requestBody, RequestSpecification specification) {
 
 
         return given()
@@ -88,7 +90,7 @@ public class User {
                 .post("/user/resend-organization-invitation");
     }
 
-    public static Response resetUserCredentials(ResetUserCredentials body) {
+    public static Response resetUserCredentials(ResetUserCredentials body, RequestSpecification specification) {
 
         return given()
                 .spec(specification)
@@ -97,7 +99,7 @@ public class User {
                 .post("/user/reset-credentials");
     }
 
-    public static Response sendEmailVerification(int id){
+    public static Response sendEmailVerification(int id, RequestSpecification specification){
 
         return given()
                 .spec(specification)
@@ -107,7 +109,7 @@ public class User {
 
     }
 
-    public static Response getAllUsers() {
+    public static Response getAllUsers(RequestSpecification specification) {
 
         return given()
                 .spec(specification)
@@ -116,14 +118,14 @@ public class User {
 
     }
 
-    public static Response getUserById(int id) {
+    public static Response getUserById(int id, RequestSpecification specification) {
         return given()
                 .spec(specification)
                 .when()
                 .get("/user/" + id);
     }
 
-    public static Response deleteUser(int id) {
+    public static Response deleteUser(int id, RequestSpecification specification) {
         return given()
                 .spec(specification)
                 .when()
@@ -132,7 +134,7 @@ public class User {
     }
 
 
-    public static Response addRoleToUser(DeleteOrAddRoleBody requestBody) {
+    public static Response addRoleToUser(DeleteOrAddRoleBody requestBody, RequestSpecification specification) {
         return given()
                 .spec(specification)
                 .when()
@@ -140,7 +142,7 @@ public class User {
                 .put("/membership/role");
     }
 
-    public static Response deleteRoleFromUser(DeleteOrAddRoleBody requestBody) {
+    public static Response deleteRoleFromUser(DeleteOrAddRoleBody requestBody, RequestSpecification specification) {
 
         return given()
                 .spec(specification)
@@ -149,7 +151,7 @@ public class User {
                 .delete("/membership/role");
     }
 
-    public static Response cherryPickUsers(int[] cherrylist) {
+    public static Response cherryPickUsers(int[] cherrylist, RequestSpecification specification) {
 
         return given()
                 .spec(specification)
@@ -158,7 +160,7 @@ public class User {
                 .post("/user/cherry-pick");
     }
 
-    public static Response getAllUsersOfOrganization(int OrganizationId) {
+    public static Response getAllUsersOfOrganization(int OrganizationId, RequestSpecification specification) {
 
         return given()
                 .spec(specification)

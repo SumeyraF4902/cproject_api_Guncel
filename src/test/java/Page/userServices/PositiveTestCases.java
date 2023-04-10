@@ -1,5 +1,6 @@
 package Page.userServices;
 
+import BaseUrl.BaseURL;
 import PojoDatas.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -13,48 +14,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
+import resources.Token;
 import utilities.JsonToJava;
+
 import java.util.List;
 
 import static org.testng.Assert.*;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PositiveTestCases {
-    public static RequestSpecification specification;
+public class PositiveTestCases extends BaseURL {
     static int userId;
-    static String token;
-
-
-    @BeforeClass
-    public static void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions opt = new ChromeOptions().setHeadless(true);
-        opt.addArguments("--remote-allow-origins=*");
-        WebDriver driver = new ChromeDriver(opt);
-        driver.get("https://qa-gm3.quaspareparts.com/oauth2/authorization/a3m-client");
-        driver.findElement(By.id("username")).sendKeys("bo@testevolve.com");
-        driver.findElement(By.id("password")).sendKeys("y5HWgTQnMG733cy");
-        driver.findElement(By.tagName("button")).click();
-        driver.navigate().to("https://qa-gm3.quaspareparts.com/auth/userinfo");
-        JsonPath path = new JsonPath(driver.findElement(By.tagName("body")).getText());
-        token = "Bearer " + path.getString("access_token");
-        driver.quit();
-
-        specification = new RequestSpecBuilder()
-                .setBaseUri("https://a3m-qa-gm3.quaspareparts.com/auth/api")
-                .setContentType(ContentType.JSON)
-                .addHeader("Authorization", token)
-                .build();
-    }
-
 
     @Test(description = "[POST]/auth/api/user/register")
     public void registerUserManually() {
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
 
         User.RegisterUserRequest requestBody = new User.RegisterUserRequest();
 
-        Response response = User.registerNewUser(requestBody);
+        Response response = User.registerNewUser(requestBody, specification);
         response.then().statusCode(201);
 
         User newUser = JsonToJava.convertJsonToJavaObject(response.asString(), User.class);
@@ -69,37 +49,41 @@ public class PositiveTestCases {
 
     @Test(description = "[DELETE]/auth/api/user/{id}")
     public void deleteUserById() {
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
 
         User.RegisterUserRequest requestBody = new User.RegisterUserRequest();
-        Response response = User.registerNewUser(requestBody);
+        Response response = User.registerNewUser(requestBody, specification);
 
         response.then().statusCode(201);
         userId = response.jsonPath().getInt("id");
 
-        Response getUser = User.getUserById(userId);
+        Response getUser = User.getUserById(userId, specification);
         getUser.then().statusCode(200);
 
-        Response deleteUser = User.deleteUser(userId);
+        Response deleteUser = User.deleteUser(userId, specification);
         deleteUser.then().statusCode(200);
 
-        Response userControl = User.getUserById(userId);
+        Response userControl = User.getUserById(userId, specification);
         userControl.then().statusCode(404);
 
     }
 
     @Test(description = "[POST]/auth/api/user/reset-credentials")
     public void resetUsersCredentials() {
-//     //   findAll{it.status.description!='User account is activated and authorized to use the application'}.id
-        List<Integer> ids = User.getAllUsers().jsonPath().getList("findAll{it.id>=360}.id");
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
+
+        List<Integer> ids = User.getAllUsers(specification).jsonPath().getList("findAll{it.id>=360}.id");
         int size = ids.size();
         userId = ids.get(size - 1);
-        Response selectedUser = User.getUserById(userId);
-        selectedUser.jsonPath().prettyPrint();
+        Response selectedUser = User.getUserById(userId, specification);
 
         User.ResetUserCredentials requestBody = new User.ResetUserCredentials(userId);
-        Response response = User.resetUserCredentials(requestBody);
+        Response response = User.resetUserCredentials(requestBody, specification);
 
-        response.prettyPrint();
         response.then().statusCode(201);
         assertEquals(requestBody.getId(), response.jsonPath().getInt("id"));
 
@@ -107,12 +91,15 @@ public class PositiveTestCases {
 
     @Test(description = "[GET]/auth/api/user/{id}")
     public void getUserById() {
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
 
-        List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
+        List<Integer> ids = User.getAllUsers(specification).jsonPath().getList("id");
         int size = ids.size();
         userId = ids.get(size - 1);
 
-        Response response = User.getUserById(userId);
+        Response response = User.getUserById(userId, specification);
         response.then().statusCode(200);
         assertEquals(userId, response.jsonPath().getInt("id"));
         assertFalse(response.jsonPath().getString("email").isEmpty());
@@ -121,8 +108,11 @@ public class PositiveTestCases {
 
     @Test
     public void addRoleToUser() {
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
 
-        List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
+        List<Integer> ids = User.getAllUsers(specification).jsonPath().getList("id");
         int size = ids.size();
         userId = ids.get(size - 1);
 
@@ -130,30 +120,31 @@ public class PositiveTestCases {
         while (true) {
             requestBody = new User.DeleteOrAddRoleBody(userId);
             System.out.println(requestBody);
-            if (!User.getUserById(userId).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id())) {
-                Response response = User.addRoleToUser(requestBody);
+            if (!User.getUserById(userId, specification).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id())) {
+                Response response = User.addRoleToUser(requestBody, specification);
                 response.then().statusCode(200);
                 break;
             }
         }
-        assertTrue(User.getUserById(userId).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id()));
-        Response response = User.deleteRoleFromUser(requestBody);
-        response.prettyPrint();
+        assertTrue(User.getUserById(userId, specification).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id()));
+        Response response = User.deleteRoleFromUser(requestBody, specification);
         response.then().statusCode(200);
-
 
     }
 
     @Test(description = "[PUT]/auth/api/user")
     public void updateExistingUser() {
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
 
-        List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
+        List<Integer> ids = User.getAllUsers(specification).jsonPath().getList("id");
         int size = ids.size();
         userId = ids.get(size - 1);
 
         User.UpdateUser requestBody = new User.UpdateUser(userId);
 
-        Response response = User.updateUser(requestBody);
+        Response response = User.updateUser(requestBody, specification);
 
         response.then().statusCode(200);
 
@@ -165,34 +156,41 @@ public class PositiveTestCases {
 
     @Test
     public void deleteRoleFromUser() {
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
 
-        List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
+        List<Integer> ids = User.getAllUsers(specification).jsonPath().getList("id");
         int size = ids.size();
         userId = ids.get(size - 1);
 
         User.DeleteOrAddRoleBody requestBody;
         while (true) {
             requestBody = new User.DeleteOrAddRoleBody(userId);
-            if (!User.getUserById(userId).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id())) {
-                Response response = User.addRoleToUser(requestBody);
+            if (!User.getUserById(userId, specification).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id())) {
+                Response response = User.addRoleToUser(requestBody, specification);
                 response.then().statusCode(200);
                 break;
             }
         }
 
-        Response response = User.deleteRoleFromUser(requestBody);
+        Response response = User.deleteRoleFromUser(requestBody, specification);
         response.then().statusCode(200);
-        assertFalse(User.getUserById(userId).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id()));
+        assertFalse(User.getUserById(userId, specification).jsonPath().getList("roles.role_id").contains(requestBody.getRole_id()));
 
     }
 
     @Test(description = "[POST]/auth/api/user/send-verification-request")
     public void sendEmailVerification() {
-        List<Integer> ids = User.getAllUsers().jsonPath().getList("findAll{it.id>=360}.id");
-        userId = ids.get(0);
-        System.out.println("userId = " + userId);
 
-        Response response = User.sendEmailVerification(userId);
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
+
+        List<Integer> ids = User.getAllUsers(specification).jsonPath().getList("findAll{it.id>=360}.id");
+        userId = ids.get(0);
+
+        Response response = User.sendEmailVerification(userId, specification);
         response.then().statusCode(200);
         assertNotNull(response.jsonPath().getString("response_status"));
         assertNotNull(response.jsonPath().getString("message"));
@@ -202,8 +200,11 @@ public class PositiveTestCases {
 
     @Test(description = "[GET]/auth/api/user")
     public void getAllUsers() {
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
 
-        Response response = User.getAllUsers();
+        Response response = User.getAllUsers(specification);
 
         response.then().statusCode(200);
         assertTrue((response.jsonPath().getList("id")).size() > 0);
@@ -213,25 +214,31 @@ public class PositiveTestCases {
 
     @Test(description = "[POST]/auth/api/user/cherry-pick")
     public void cherrypickUsersByProvidingListOfIds() {
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
 
-        List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
+        List<Integer> ids = User.getAllUsers(specification).jsonPath().getList("id");
 
         int[] requestBody = new int[3];
         requestBody[0] = ids.get(1);
         requestBody[1] = ids.get(2);
         requestBody[2] = ids.get(3);
 
-        Response response = User.cherryPickUsers(requestBody);
+        Response response = User.cherryPickUsers(requestBody, specification);
         response.then().statusCode(200);
         assertEquals(3, response.jsonPath().getList("id").size());
     }
 
     @Test(description = "[POST]/auth/api/organization/{organizationId}/application/{appId}/role/{roleId}/user")
     public void inviteNewUser() {
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
 
         User.RegisterUserRequest requestBody = new User.RegisterUserRequest();
 
-        Response response = User.inviteNewUser(requestBody);
+        Response response = User.inviteNewUser(requestBody, specification);
         response.then().statusCode(201);
         assertEquals(requestBody.getEmail(), response.jsonPath().getString("email"));
         assertEquals(requestBody.getEmail(), response.jsonPath().getString("username"));
@@ -242,15 +249,16 @@ public class PositiveTestCases {
 
     @Test(description = "[POST]/auth/api/user/resend-organization-invitation")
     public void resendOrganizationInvitation() {
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
 
-        List<Integer> ids = User.getAllUsers().jsonPath()
+        List<Integer> ids = User.getAllUsers(specification).jsonPath()
                 .getList("id");
         userId = ids.get(0);
-        User.getAllUsers().prettyPrint();
         User.ResendOrganizationInvitation requestBody = new User.ResendOrganizationInvitation(userId);
 
-        Response response = User.resendOrganizationInvitation(requestBody);
-        response.prettyPrint();
+        Response response = User.resendOrganizationInvitation(requestBody, specification);
         response.then().statusCode(200);
         assertEquals("Invitation email request sent successfully", response.jsonPath().getString("message"));
 
@@ -258,8 +266,13 @@ public class PositiveTestCases {
 
     @Test(description = "[GET]/auth/api/organization/{organizationId}/user")
     public void getAllUsersOfOrganization() {
+
+        specification
+                .contentType(ContentType.JSON)
+                .header("Authorization", Token.BO_token());
+
         int organizationId = 181;
-        Response response = User.getAllUsersOfOrganization(organizationId);
+        Response response = User.getAllUsersOfOrganization(organizationId, specification);
         response.then().statusCode(200);
         List<Integer> differenIdList = response.jsonPath()
                 .getList("findAll { user -> user.user_groups.any { group -> group.organization_id != 1 } }");
