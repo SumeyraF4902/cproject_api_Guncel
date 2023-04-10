@@ -18,15 +18,19 @@ public class Get_UserGroup extends BaseURL {
     public void TC001(){
         specification.pathParam("getUserGroupPath","user-group");
         Response response=given().spec(specification).when().header("Authorization", Token.BO_token()).get("/{getUserGroupPath}");
-        response.then().assertThat().statusCode(200).body("name", hasItem("test1S-Teams"));
+
+        response.then().assertThat().statusCode(200).body("name", hasItem("Test1sDep"));
+
 
     }
 
     @Test
     public void TC002(){
-        specification.pathParams("getUserGroupPath","user-group","idPath","15");
+
+        specification.pathParams("getUserGroupPath","user-group","idPath","99");
         Response response=given().spec(specification).when().header("Authorization", Token.BO_token()).get("/{getUserGroupPath}/{idPath}");
-       response.then().assertThat().statusCode(200).body("id",equalTo(15));
+       response.then().assertThat().statusCode(200).body("id",equalTo(99));
+
 
     }
 

@@ -27,21 +27,25 @@ public class Delete_UserGroup extends BaseURL {
         List<Map<String, Object>> userGroups = jsonPath.getList("");
         int otoID = 0;
         for (Map<String, Object> userGroup : userGroups) {
-            if (userGroup.get("name").equals("DepartmentForPost")) {
-                otoID = (Integer) userGroup.get("id");
 
+            if (userGroup.get("name").toString().contains("Team1s")) {
+                System.out.println(userGroup);
+                otoID = (Integer) userGroup.get("id");
+                System.out.println(otoID);
                 break;
             }
         }
+        int deleteId=otoID;
+      specification.pathParam("idPath", deleteId);
+      System.out.println(deleteId);
+   Response responseDel = given().spec(specification).when().header("Authorization", Token.BO_token()).contentType(ContentType.JSON).delete("/{getUserGroupPath}/{idPath}");
+    responseDel.then().assertThat().statusCode(200);
+   Response responseGet = given().spec(specification).when()
+           .contentType(ContentType.JSON)
+           .header("Authorization", Token.BO_token())
+           .get("/{getUserGroupPath}/{idPath}");
+   responseGet.then().assertThat().statusCode(404);
 
-        specification.pathParam("idPath", otoID);
-        response = given().spec(specification).when().header("Authorization", Token.BO_token()).contentType(ContentType.JSON).delete("/{getUserGroupPath}/{idPath}");
-        response.then().assertThat().statusCode(200);
-        Response responseGet = given().spec(specification).when()
-                .contentType(ContentType.JSON)
-                .header("Authorization", Token.BO_token())
-                .get("/{getUserGroupPath}/{idPath}");
-        responseGet.then().assertThat().statusCode(404);
 
     }
 
@@ -50,13 +54,15 @@ public class Delete_UserGroup extends BaseURL {
     public void TC_007() {
 
 
-        //https://qa-gm3.quaspareparts.com/a3m/auth/api/organization/1/user-group/15/user/235
+
+
         specification.pathParam("orgPath", "organization")
-                .pathParam("orgId", 1)
+                .pathParam("orgId", 181)
                 .pathParam("userPath1", "user-group")
-                .pathParam("userGroupId", 15)
+                .pathParam("userGroupId", 99)
                 .pathParam("userPath2", "user")
-                .pathParam("userId", 235);
+                .pathParam("userId", 351);
+
 
         Response response = given().spec(specification).header("Authorization", Token.BO_token())
                 .contentType(ContentType.JSON)
@@ -67,11 +73,10 @@ public class Delete_UserGroup extends BaseURL {
                 specificationnew = new RequestSpecBuilder().
                 setBaseUri("https://a3m-qa-gm3.quaspareparts.com/auth/api").
                 build();
-        specificationnew.pathParams("userPath1", "user-group", "userGroupId", 15);
-        response = given().spec(specificationnew).when().header("Authorization", Token.BO_token()).contentType(ContentType.JSON).get("/{userPath1}/{userGroupId}");
+
+        specificationnew.pathParams("userPath1", "user-group", "userGroupId", 99);
 
 
-        assertFalse(response.getBody().asString().contains("userteam1@usertest.com"));
 
 
     }

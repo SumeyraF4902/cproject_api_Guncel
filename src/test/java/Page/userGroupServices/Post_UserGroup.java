@@ -26,7 +26,9 @@ public class Post_UserGroup extends BaseURL {
     body.add(id);
 
     specification.pathParam("postUserGroupPath","user-group");
-    UserGroup.body userGroupBody = new UserGroup.body("DepartmentForPost", 1,body);
+
+    UserGroup.body userGroupBody = new UserGroup.body("DepartmentTeam1s", 1,body);
+
      Response response=given().spec(specification).when()
              .contentType(ContentType.JSON)
              .header("Authorization", Token.BO_token())
@@ -37,7 +39,7 @@ public class Post_UserGroup extends BaseURL {
     assertEquals(actualName, userGroupBody.getName());
      assertEquals(response.getStatusCode(),201);
    int autId=jsonPath.get("id");
-   System.out.println(autId);
+
    specification.pathParam("idPath",autId);
    Response responseGet=given().spec(specification).when()
            .contentType(ContentType.JSON)
@@ -47,13 +49,14 @@ public class Post_UserGroup extends BaseURL {
 
 }    @Test
     public void TC_006(){
-//https://qa-gm3.quaspareparts.com/a3m/auth/api/organization/1/user-group/15/user/235
+
+//https://qa-gm3.quaspareparts.com/a3m/auth/api/organization/181/user-group/99/user/351
 specification.pathParam("orgPath", "organization")
-                .pathParam("orgId", 1)
+                .pathParam("orgId", 181)
                 .pathParam("userPath1", "user-group")
-                .pathParam("userGroupId", 15)
+                .pathParam("userGroupId", 99)
                 .pathParam("userPath2", "user")
-                .pathParam("userId", 235);
+                .pathParam("userId", 351);
 
  Response response=given().spec(specification).header("Authorization", Token.BO_token())
                 .contentType(ContentType.JSON)
