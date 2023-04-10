@@ -13,8 +13,8 @@ public class User {
 
 
     private int id;
-    private static final int organization_id = 1;
-    private static final String subscription_id = "ba361a19-5fbb-4366-b425-50230f1d7918";
+    private static final int organization_id = 181;
+    private static final String subscription_id = "7927dbb0-aaeb-4b13-b244-2c441593106b";
     private static final int app_id = 2;
     private String name;
     private String lastname;
@@ -417,9 +417,9 @@ public class User {
         private final int organization_id;
         private final int app_id;
         private int default_role_id;
-        Faker faker = new Faker();
 
         public RegisterUserRequest() {
+            Faker faker = new Faker();
             this.email = faker.internet().emailAddress();
             organization_id = User.organization_id;
             app_id = User.app_id;

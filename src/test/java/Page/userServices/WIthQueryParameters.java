@@ -35,7 +35,7 @@ public class WIthQueryParameters extends BaseURL {
         WebDriver driver = new ChromeDriver(opt);
         driver.get("https://qa-gm3.quaspareparts.com/oauth2/authorization/a3m-client");
         driver.findElement(By.id("username")).sendKeys("bo@testevolve.com");
-        driver.findElement(By.id("password")).sendKeys("uKNO-X1Hmd9RoZR");
+        driver.findElement(By.id("password")).sendKeys("y5HWgTQnMG733cy");
         driver.findElement(By.tagName("button")).click();
         driver.navigate().to("https://qa-gm3.quaspareparts.com/auth/userinfo");
         JsonPath path = new JsonPath(driver.findElement(By.tagName("body")).getText());

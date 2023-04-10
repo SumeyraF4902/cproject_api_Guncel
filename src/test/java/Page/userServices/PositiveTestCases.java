@@ -1,5 +1,5 @@
 package Page.userServices;
-import BaseUrl.BaseURL;
+
 import PojoDatas.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -13,11 +13,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
-import resources.Token;
 import utilities.JsonToJava;
-
-import java.io.IOException;
 import java.util.List;
+
 import static org.testng.Assert.*;
 
 
@@ -28,7 +26,7 @@ public class PositiveTestCases {
     static String token;
 
 
-@BeforeClass
+    @BeforeClass
     public static void setUp() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions opt = new ChromeOptions().setHeadless(true);
@@ -36,7 +34,7 @@ public class PositiveTestCases {
         WebDriver driver = new ChromeDriver(opt);
         driver.get("https://qa-gm3.quaspareparts.com/oauth2/authorization/a3m-client");
         driver.findElement(By.id("username")).sendKeys("bo@testevolve.com");
-        driver.findElement(By.id("password")).sendKeys("uKNO-X1Hmd9RoZR");
+        driver.findElement(By.id("password")).sendKeys("y5HWgTQnMG733cy");
         driver.findElement(By.tagName("button")).click();
         driver.navigate().to("https://qa-gm3.quaspareparts.com/auth/userinfo");
         JsonPath path = new JsonPath(driver.findElement(By.tagName("body")).getText());
@@ -92,7 +90,7 @@ public class PositiveTestCases {
     @Test(description = "[POST]/auth/api/user/reset-credentials")
     public void resetUsersCredentials() {
 //     //   findAll{it.status.description!='User account is activated and authorized to use the application'}.id
-        List<Integer> ids = User.getAllUsers().jsonPath().getList("findAll{it.id>60}.id");
+        List<Integer> ids = User.getAllUsers().jsonPath().getList("findAll{it.id>=360}.id");
         int size = ids.size();
         userId = ids.get(size - 1);
         Response selectedUser = User.getUserById(userId);
@@ -189,10 +187,10 @@ public class PositiveTestCases {
     }
 
     @Test(description = "[POST]/auth/api/user/send-verification-request")
-    public void sendEmailVerification(){
-        List<Integer> ids = User.getAllUsers().jsonPath().getList("id");
-        int size = ids.size();
-        userId = ids.get(size - 1);
+    public void sendEmailVerification() {
+        List<Integer> ids = User.getAllUsers().jsonPath().getList("findAll{it.id>=360}.id");
+        userId = ids.get(0);
+        System.out.println("userId = " + userId);
 
         Response response = User.sendEmailVerification(userId);
         response.then().statusCode(200);
@@ -203,13 +201,12 @@ public class PositiveTestCases {
     }
 
     @Test(description = "[GET]/auth/api/user")
-    public void getAllUsers(){
+    public void getAllUsers() {
 
         Response response = User.getAllUsers();
 
         response.then().statusCode(200);
-        assertTrue((response.jsonPath().getList("id")).size()>0);
-
+        assertTrue((response.jsonPath().getList("id")).size() > 0);
 
 
     }
@@ -247,26 +244,26 @@ public class PositiveTestCases {
     public void resendOrganizationInvitation() {
 
         List<Integer> ids = User.getAllUsers().jsonPath()
-                .getList("findAll{it.status.description!='User account is activated and authorized to use the application'}.id");
+                .getList("id");
         userId = ids.get(0);
-
+        User.getAllUsers().prettyPrint();
         User.ResendOrganizationInvitation requestBody = new User.ResendOrganizationInvitation(userId);
 
         Response response = User.resendOrganizationInvitation(requestBody);
+        response.prettyPrint();
         response.then().statusCode(200);
         assertEquals("Invitation email request sent successfully", response.jsonPath().getString("message"));
 
     }
 
     @Test(description = "[GET]/auth/api/organization/{organizationId}/user")
-    public void getAllUsersOfOrganization(){
-        int organizationId = 1;
+    public void getAllUsersOfOrganization() {
+        int organizationId = 181;
         Response response = User.getAllUsersOfOrganization(organizationId);
         response.then().statusCode(200);
         List<Integer> differenIdList = response.jsonPath()
                 .getList("findAll { user -> user.user_groups.any { group -> group.organization_id != 1 } }");
-        assertFalse(differenIdList.size()>0);
-
+        assertFalse(differenIdList.size() > 0);
 
 
     }
