@@ -82,23 +82,18 @@ public class Organization {
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
     }
-}
 
 
-    public void setFax(String fax ) {
-        this.fax = fax;
+    public void setFax(String fax) {
+      //  this.fax = fax;
     }
 
-    public void setStatus_id( int status_id ) {
-        this.status_id = status_id;
+    public void setStatus_id(int status_id) {
+    //    this.status_id = status_id;
     }
 
-    public void setCreated_at( String created_at ) {
-        this.created_at = created_at;
-    }
 
-    public void setUpdated_at( String updated_at ) {
-        this.updated_at = updated_at;
-    }
+
+
 }
 

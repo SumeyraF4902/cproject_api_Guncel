@@ -11,7 +11,7 @@ public class UserGroupMainPojo {
     private int organization_id;
     Organization OrganizationObject;
 
-
+/*
 
     private  ArrayList<Map<String,Integer>> roles;
 
@@ -28,15 +28,17 @@ public class UserGroupMainPojo {
 
 
 
-    public UserGroupMainPojo(Object id, String name, int group_type_id, Group_type group_typeObject, int organization_id, Organization organizationObject, ArrayList<Map<String,Integer>> roles, String short_name) {
+    public UserGroupMainPojo(Object id, String name, int group_type_id, Group_type group_typeObject,
+        int organization_id, Organization organizationObject, ArrayList < Map < String, Integer >> roles, String
+        short_name){
 
-        this.id = id;
-        this.name = name;
-        this.group_type_id = group_type_id;
-        Group_typeObject = group_typeObject;
-        this.organization_id = organization_id;
-        OrganizationObject = organizationObject;
+            this.id = id;
+            this.name = name;
+            this.group_type_id = group_type_id;
+            Group_typeObject = group_typeObject;
+            this.organization_id = organization_id;
+            OrganizationObject = organizationObject;
 
 
-
-}
+        }*/
+    }
