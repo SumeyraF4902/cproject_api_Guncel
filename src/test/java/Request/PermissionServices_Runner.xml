@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Permission Test Suite">
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+    <test name="Permissions Test">
+        <classes>
+            <class name="Page.permissionServices.PpD_Permissions">
+                <methods>
+                    <include name="post"/>
+                    <include name="put"/>
+                    <include name="delete"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

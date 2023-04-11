@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
@@ -58,18 +59,6 @@ public class Permission {
                 '}';
     }
 
-    public Permission(String resource, String action, int app_id) {
-        this.resource = resource;
-        this.action = action;
-        this.app_id = app_id;
-    }
-
-    public Permission(int id, String resource, String action, int app_id) {
-        this.id = id;
-        this.resource = resource;
-        this.action = action;
-        this.app_id = app_id;
-    }
 
 
 }
