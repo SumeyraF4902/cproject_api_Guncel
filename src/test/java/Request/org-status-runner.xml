@@ -5,10 +5,16 @@
     </listeners>
     <test name="My Test">
         <classes>
-            <class name="Page.organizationStatusServices.MethodGet">
+            <class name="Page.organizationStatusServices.MethodGet"/>
+            <class name="Page.organizationStatusServices.MethodPost"/>
+            <class name="Page.organizationStatusServices.MethodPut"/>
+            <class name="Page.organizationStatusServices.MethodDelete">
                 <methods>
                     <include name="ZGetAllOrganizationStatus"/>
                     <include name="GetOrganizationStatusByid"/>
+                    <include name="PostAllOrganizationStatus"/>
+                    <include name="Put_org_stts"/>
+                    <include name="organization_status_delete_selected"/>
                 </methods>
             </class>
         </classes>
