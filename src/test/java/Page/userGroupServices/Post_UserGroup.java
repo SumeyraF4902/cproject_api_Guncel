@@ -50,7 +50,7 @@ public class Post_UserGroup extends BaseURL {
 }    @Test
     public void TC_006(){
 
-//https://qa-gm3.quaspareparts.com/a3m/auth/api/organization/181/user-group/99/user/351
+
 specification.pathParam("orgPath", "organization")
                 .pathParam("orgId", 181)
                 .pathParam("userPath1", "user-group")
