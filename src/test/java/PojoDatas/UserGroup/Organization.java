@@ -6,15 +6,12 @@ public class Organization {
     private int founder_id;
     private String short_name;
 
-
     private String created_at;
     private String updated_at;
-
 
     public int getId() {
         return id;
     }
-
 
     public Organization(int id, String name, int founder_id, String short_name, String created_at, String updated_at) {
         this.id = id;
@@ -63,13 +60,11 @@ public class Organization {
 
     public void setShort_name(String short_name) {
         this.short_name = short_name;
-
     }
 
     public String getCreated_at() {
         return created_at;
     }
-
 
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
@@ -81,19 +76,5 @@ public class Organization {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
-    }
-
-
-    public void setFax(String fax) {
-      //  this.fax = fax;
-    }
-
-    public void setStatus_id(int status_id) {
-    //    this.status_id = status_id;
-    }
-
-
-
-
-}
+    }}
 

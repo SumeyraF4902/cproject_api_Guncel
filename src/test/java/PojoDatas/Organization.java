@@ -5,6 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 
 public class Organization {
+    public Organization(String name,int founder_id,String created_at,String updated_at) {
+        this.name = name;
+        this.founder_id = founder_id;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+    }
 
 
     int id;
@@ -137,20 +143,10 @@ public class Organization {
     @Override
     public String toString() {
         return "Organizations{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", founder_id=" + founder_id +
-                ", short_name='" + short_name + '\'' +
-                ", address='" + address + '\'' +
-                ", country_id='" + country_id + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", website='" + website + '\'' +
-                ", fax='" + fax + '\'' +
-                ", status_id=" + status_id +
                 ", created_at='" + created_at + '\'' +
                 ", updated_at='" + updated_at + '\'' +
-                ", currency='" + currency + '\'' +
                 '}';
     }
 }

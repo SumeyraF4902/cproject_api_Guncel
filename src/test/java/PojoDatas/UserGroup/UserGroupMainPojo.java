@@ -11,8 +11,6 @@ public class UserGroupMainPojo {
     private int organization_id;
     Organization OrganizationObject;
 
-/*
-
     private  ArrayList<Map<String,Integer>> roles;
 
     @Override
@@ -25,20 +23,83 @@ public class UserGroupMainPojo {
                 ", organization_id=" + organization_id +
                 ",=" + OrganizationObject +
 
-
-
-
-    public UserGroupMainPojo(Object id, String name, int group_type_id, Group_type group_typeObject,
-        int organization_id, Organization organizationObject, ArrayList < Map < String, Integer >> roles, String
-        short_name){
-
-            this.id = id;
-            this.name = name;
-            this.group_type_id = group_type_id;
-            Group_typeObject = group_typeObject;
-            this.organization_id = organization_id;
-            OrganizationObject = organizationObject;
-
-
-        }*/
+                ", roles=" + roles +
+                ", short_name='" + short_name + '\'' +
+                '}';
     }
+
+    private String short_name;
+
+    public UserGroupMainPojo(Object id, String name, int group_type_id, Group_type group_typeObject, int organization_id, Organization organizationObject, ArrayList<Map<String,Integer>> roles, String short_name) {
+        this.id = id;
+        this.name = name;
+        this.group_type_id = group_type_id;
+        Group_typeObject = group_typeObject;
+        this.organization_id = organization_id;
+        OrganizationObject = organizationObject;
+
+        this.roles = roles;
+        this.short_name = short_name;
+    }
+
+// Getter Methods
+
+    public Object getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getGroup_type_id() {
+        return group_type_id;
+    }
+
+    public Group_type getGroup_type() {
+        return Group_typeObject;
+    }
+
+    public int getOrganization_id() {
+        return organization_id;
+    }
+
+    public Organization getOrganization() {
+        return OrganizationObject;
+    }
+
+    public String getShort_name() {
+        return short_name;
+    }
+
+    // Setter Methods
+
+    public void setId( int id ) {
+        this.id = id;
+    }
+
+    public void setName( String name ) {
+        this.name = name;
+    }
+
+    public void setGroup_type_id( int group_type_id ) {
+        this.group_type_id = group_type_id;
+    }
+
+    public void setGroup_type( Group_type group_typeObject ) {
+        this.Group_typeObject = group_typeObject;
+    }
+
+    public void setOrganization_id( int organization_id ) {
+        this.organization_id = organization_id;
+    }
+
+    public void setOrganization( Organization organizationObject ) {
+        this.OrganizationObject = organizationObject;
+    }
+
+    public void setShort_name( String short_name ) {
+        this.short_name = short_name;
+    }
+
+}

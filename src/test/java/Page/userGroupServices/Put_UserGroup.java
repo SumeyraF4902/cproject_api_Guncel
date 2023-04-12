@@ -20,7 +20,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
-/*
+
 
 public class Put_UserGroup extends BaseURL {
 
@@ -66,9 +66,8 @@ public class Put_UserGroup extends BaseURL {
         //   assertEquals(actualName, "deldeldel");
 
 /*{"id":105,"name":"DepartmentTeam1s","group_type_id":1,"group_type":{"id":1,"name":"Department","description":"User account is deactivated, and not authorized to access any the application"},"organization_id":181,
-"organization":{"id":181,"name":"TestEvolve","founder_id":43,"short_name":"TE","created_at":"2023-04-10T13:08:39.699420Z","updated_at":"2023-04-10T13:08:39.699421Z"},"roles":[{"id":5}],"short_name":"del"}
+"organization":{"id":181,"name":"TestEvolve","founder_id":43,"short_name":"TE","created_at":"2023-04-10T13:08:39.699420Z","updated_at":"2023-04-10T13:08:39.699421Z"},"roles":[{"id":5}],"short_name":"del"} */
 
+    }
 
-
-
-}*/
+}

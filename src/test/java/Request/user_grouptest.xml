@@ -1,0 +1,26 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="UserGroup Test Suite">
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+    <test name="UserGroup Test">
+        <classes>
+            <class name="Page.userGroupServices.Get_UserGroup"/>
+            <class name="Page.userGroupServices.Post_UserGroup"/>
+            <class name="Page.userGroupServices.Put_UserGroup"/>
+            <class name="Page.userGroupServices.Delete_UserGroup">
+                <methods>
+                    <include name="TC_001"/>
+                    <include name="TC_002"/>
+                    <include name="TC_003"/>
+                    <include name="TC_004"/>
+                    <include name="TC_005"/>
+                    <include name="TC_006"/>
+                    <include name="TC_007"/>
+                    <include name="TC_008"/>
+                    <include name="TC_009"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

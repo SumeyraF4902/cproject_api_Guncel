@@ -16,7 +16,8 @@ import static io.restassured.RestAssured.given;
 public class MethodPost extends BaseURL {
     static int team_id;
     @Test
-    public void GetAllOrganizationStatus() {
+    public void PostAllOrganizationStatus() {
+        System.out.println(team_id);
         specification.pathParams("org-stts-path", "organization-status");
         OrganizationStatus org = new OrganizationStatus("team01", "team01");
         System.out.println(org);
@@ -36,6 +37,14 @@ public class MethodPost extends BaseURL {
 // Get the team01Id
         team_id = (int) teams.get("id");
         System.out.println(team_id);
+        setTeamId((int) teams.get("id"));
+    }
+    public int getTeamId() {
+        return team_id;
+    }
+
+    public void setTeamId(int team_id) {
+        this.team_id = team_id;
     }
 }
 

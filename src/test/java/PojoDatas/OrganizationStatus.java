@@ -11,7 +11,7 @@ public class OrganizationStatus {
         this.description = description;
     }
 
-    static int team_id;
+
     int[] id;
     String name;
     String description;
@@ -19,12 +19,11 @@ public class OrganizationStatus {
     public int[] getId() {
         return id;
     }
-    public int get_team_id() {
-        return team_id;
-    }
-    public int set_team_id() {
-        return team_id;
-    }
+  // public int get_team_id() {return team_id;
+  // }
+  // public int set_team_id() {
+      //  return team_id;
+    //}
 
     public void setId(int[] id) {
         this.id = id;

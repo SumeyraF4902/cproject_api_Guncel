@@ -2,15 +2,14 @@ Page\membershipServices\a.class
 Page\organizationStatusServices\MethodPost.class
 utilities\a.class
 utilities\Protect_to_driver.class
-PojoDatas\testcases.class
 utilities\configReusable.class
 PojoDatas\Country.class
 PojoDatas\User.class
+PojoDatas\User$UpdateUser.class
+PojoDatas\User$RegisterUserRequest.class
 Page\userGroupTypeServices\PostUserGroupType.class
 Request_Runner\a.class
-Page\userServices\a.class
 PojoDatas\OrganizationStatus.class
-PojoDatas\UserBuilder.class
 Page\membershipTypeServices\a.class
 Page\userGroupTypeServices\DeleteUserGroupType.class
 Page\userStatusServices\a.class
@@ -20,9 +19,9 @@ Page\userGroupServices\a.class
 utilities\JsonToJava.class
 utilities\Token.class
 resources\Token.class
+PojoDatas\User$DeleteOrAddRoleBody.class
 resources\Protect_to_driver.class
 Page\userGroupTypeServices\PutUserGroupType.class
-PojoDatas\testcases$1.class
 Page\organizationStatusServices\MethodGet.class
 PojoDatas\Role.class
 PojoDatas\UserStatus.class
@@ -31,7 +30,9 @@ PojoDatas\UserGroupType.class
 PojoDatas\Organization.class
 Request\a.class
 resources\LoginPage.class
+Page\userServices\testcases.class
 PojoDatas\MembershipType.class
+PojoDatas\User$ResetUserCredentials.class
 BaseUrl\BaseURL.class
 PojoDatas\Permission.class
 Page\countryServices\a.class
@@ -42,3 +43,4 @@ PojoDatas\User2.class
 Page\roleServices\GetRolAppId.class
 Page\organizationStatusServices\MethodPut.class
 Page\userGroupTypeServices\GetUserGroupType.class
+PojoDatas\User$ResendOrganizationInvitation.class
